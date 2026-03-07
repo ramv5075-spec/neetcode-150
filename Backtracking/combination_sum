@@ -1,0 +1,36 @@
+// NeetCode 150 - Backtracking
+// Problem: Combination Sum
+// Difficulty: Medium
+// Approach: Backtracking
+// Time Complexity: O(2^t)
+// Space Complexity: O(t)
+
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& nums, int target) {
+        vector<vector<int>> result;
+        vector<int> temp;
+        backtrack(result, temp, nums, target, 0);
+        return result;   
+    }
+
+    void backtrack(vector<vector<int>>& result, vector<int>& temp, vector<int>& nums, int target, int index) {
+        if (index == nums.size()) {
+            if (target == 0) {
+                result.push_back(temp);
+            }
+            return;
+        }
+
+        if (nums[index] <= target) {
+            temp.push_back(nums[index]);
+            backtrack(result, temp, nums, target - nums[index], index);
+            temp.pop_back();
+        }
+
+        backtrack(result, temp, nums, target, index + 1);
+    }
+};
